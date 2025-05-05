@@ -1,5 +1,5 @@
 # Start from a clean, minimal base image
-FROM python:3.11-slim
+FROM python:3.11-alpine
 
 # Set working directory
 WORKDIR /app
