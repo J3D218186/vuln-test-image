@@ -15,30 +15,26 @@
 
 
 
-# Base image yang ringan tapi aman
 FROM debian:bookworm-slim
 
-# Set metadata
-LABEL maintainer="you@example.com"
-LABEL description="Python + Flask with minimal surface and no known SQLite CVEs"
-
-# Set working directory
 WORKDIR /app
 
-# Install Python and pip (tanpa SQLite tambahan)
+# Install Python, pip, dan venv
 RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
+    python3-venv \
     --no-install-recommends && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements
+# Copy requirements.txt
 COPY requirements.txt .
 
-# Install Flask
-RUN pip3 install --no-cache-dir -r requirements.txt
+# Buat virtual environment dan install dependensi di dalamnya
+RUN python3 -m venv /venv && \
+    /venv/bin/pip install --no-cache-dir -r requirements.txt
 
-# Dummy command
-CMD ["python3", "-c", "import flask; print('Flask version:', flask.__version__)"]
+# Gunakan interpreter dari venv
+CMD ["/venv/bin/python", "-c", "import flask; print('Flask version:', flask.__version__)"]
+
 
