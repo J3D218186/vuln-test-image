@@ -6,7 +6,7 @@ pipeline {
         FALCON_CLIENT_SECRET = credentials('FALCON_CLIENT_SECRET')
         FALCON_CLIENT_ID = credentials('FALCON_CLIENT_ID')
         BUILD_DIR = '.'
-        CONTAINER_REPO = 'yasoniayp/image-scan-example'
+        CONTAINER_REPO = 'yasoniayp/vuln-test-image'
         CONTAINER_TAG = "${BUILD_NUMBER}"
         FALCON_CLOUD_REGION = 'us-2'   
     }
