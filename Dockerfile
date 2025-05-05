@@ -15,26 +15,23 @@
 
 
 
-FROM debian:bookworm-slim
+FROM alpine:3.19
 
-WORKDIR /app
-
-# Install Python, pip, dan venv
-RUN apt-get update && apt-get install -y \
+# Install python, pip, venv — tanpa zlib-dev, tanpa glibc
+RUN apk add --no-cache \
     python3 \
-    python3-pip \
-    python3-venv \
-    --no-install-recommends && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    py3-pip \
+    py3-virtualenv
 
-# Copy requirements.txt
+# Create venv
+WORKDIR /app
 COPY requirements.txt .
 
-# Buat virtual environment dan install dependensi di dalamnya
 RUN python3 -m venv /venv && \
     /venv/bin/pip install --no-cache-dir -r requirements.txt
 
-# Gunakan interpreter dari venv
+# Final command
 CMD ["/venv/bin/python", "-c", "import flask; print('Flask version:', flask.__version__)"]
+
 
 
