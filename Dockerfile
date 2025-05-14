@@ -28,8 +28,7 @@ WORKDIR /app
 COPY requirements.txt .
 
 RUN python3 -m venv /venv && \
-    /venv/bin/pip install --no-cache-dir -r requirements.txt && \
-   /venv/bin/pip install --upgrade setuptools==65.5.1
+    /venv/bin/pip install --no-cache-dir -r requirements.txt 
 
 # Final command
 CMD ["/venv/bin/python", "-c", "import flask; print('Flask version:', flask.__version__)"]
