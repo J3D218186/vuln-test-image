@@ -1,1 +1,2 @@
-flask==0.12
+flask>=2.2.0
+setuptools>=65.5.1
